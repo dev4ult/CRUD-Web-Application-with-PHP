@@ -12,6 +12,12 @@ if (isset($_POST['tambah-data'])) {
     query_dml("INSERT INTO mahasiswa VALUES('', '" . $nama . "', '" . $nim . "', '" . $email . "', '" . $jurusan . "', '" . $gambar . "')");
     echo "<script>window.location.href='index.php'</script>";
 }
+
+if (isset($_GET['search'])) {
+    $key = $_GET['search'];
+    $data_mhs = query_select("SELECT * FROM mahasiswa WHERE nama LIKE '%" . $key . "%' OR nim LIKE '%" . $key . "%' OR email LIKE '%" . $key . "%' OR jurusan LIKE '%" . $key . "%'");
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -31,11 +37,45 @@ if (isset($_POST['tambah-data'])) {
 
 <body class='font-poppins'>
     <main class="container max-w-6xl mx-auto px-3">
-        <!-- The button to open modal -->
-        <label for="add-button" class="btn modal-button btn-sm btn-success hover:bg-green-500 text-white my-5">Tambah
-            Mahasiswa</label>
 
-        <!-- Put this part before </body> tag -->
+        <div class="flex gap-4 my-5">
+            <!-- add data button -->
+            <label for="add-button" class="btn modal-button btn-sm btn-success hover:bg-green-500 text-white">Tambah
+                Mahasiswa</label>
+
+            <div class="form-control">
+                <div class="input-group">
+                    <input type="text" id="search-key" placeholder="Search…" class="input input-sm input-bordered" />
+                    <button id="search-btn" class="btn btn-sm btn-square">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <script>
+            const searchBtn = document.querySelector('#search-btn');
+            const searchKey = document.querySelector('#search-key');
+            searchBtn.addEventListener('click', _ => {
+                const key = searchKey.value;
+                window.location.href = 'index.php?search=' + key;
+            })
+
+            searchKey.addEventListener('keypress', event => {
+                if (event.key == 'Enter') {
+                    const key = searchKey.value;
+                    window.location.href = 'index.php?search=' + key;
+                }
+            })
+            </script>
+
+        </div>
+
+
+        <!-- add data modal -->
         <input type="checkbox" id="add-button" class="modal-toggle" />
         <div class="modal modal-bottom sm:modal-middle">
             <div class="modal-box">
@@ -81,8 +121,15 @@ if (isset($_POST['tambah-data'])) {
                             name="tambah-data">
                     </div>
                 </form>
+                <div class="modal-action absolute top-0 right-0 m-6">
+                    <label for="add-button" class="btn p-0 btn-square btn-sm">
+                        <img src="./img/logo/close.svg" alt="close button" class="w-6">
+                    </label>
+                </div>
             </div>
         </div>
+
+
         <div class="overflow-x-auto">
             <table class="table table-compact w-full">
                 <thead>
