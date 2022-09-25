@@ -2,13 +2,12 @@
 require 'functions.php';
 $data_mhs = query_select("SELECT * FROM mahasiswa");
 
-
 if (isset($_POST['tambah-data'])) {
-    $nama = $_POST['nama'];
-    $email = $_POST['email'];
-    $nim = $_POST['nim'];
-    $jurusan = $_POST['jurusan'];
-    $gambar = $_POST['gambar'];
+    $nama = htmlspecialchars($_POST['nama']);
+    $email = htmlspecialchars($_POST['email']);
+    $nim = htmlspecialchars($_POST['nim']);
+    $jurusan = htmlspecialchars($_POST['jurusan']);
+    $gambar = htmlspecialchars($_POST['gambar']);
 
     query_dml("INSERT INTO mahasiswa VALUES('', '" . $nama . "', '" . $nim . "', '" . $email . "', '" . $jurusan . "', '" . $gambar . "')");
     echo "<script>window.location.href='index.php'</script>";
@@ -99,21 +98,21 @@ if (isset($_POST['tambah-data'])) {
                 </thead>
                 <tbody>
                     <?php $id = 1;
-                    foreach ($data_mhs as $mhs) : ?>
+foreach ($data_mhs as $mhs): ?>
                     <tr>
-                        <th><?= $id ?></th>
-                        <td><?= $mhs['gambar'] ?></td>
-                        <td><?= $mhs['nama'] ?></td>
-                        <td><?= $mhs['email'] ?></td>
-                        <td><?= $mhs['nim'] ?></td>
-                        <td><?= $mhs['jurusan'] ?></td>
+                        <th><?=$id?></th>
+                        <td><?=$mhs['gambar']?></td>
+                        <td><?=$mhs['nama']?></td>
+                        <td><?=$mhs['email']?></td>
+                        <td><?=$mhs['nim']?></td>
+                        <td><?=$mhs['jurusan']?></td>
                         <td>
-                            <a href="detail.php?data-id=<?= $id ?>" class="btn btn-info btn-sm text-white">Edit</a>
+                            <a href="detail.php?data-id=<?=$id?>" class="btn btn-info btn-sm text-white">Edit</a>
                         </td>
                     </tr>
                     <?php
-                        $id++;
-                    endforeach ?>
+$id++;
+endforeach?>
                 </tbody>
                 <tfoot>
                     <tr>
