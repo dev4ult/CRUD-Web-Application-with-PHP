@@ -5,7 +5,7 @@ $database = "phpdasar";
 
 $conn = mysqli_connect($serverhost, $username, '', $database);
 
-function query($query) {
+function query_select($query) {
     global $conn;
     $result = mysqli_query($conn, $query);
     $rows = [];
@@ -17,7 +17,7 @@ function query($query) {
     return $rows;
 }
 
-function query_delete($query) {
+function query_dml($query) {
     global $conn;
     mysqli_query($conn, $query);
 }

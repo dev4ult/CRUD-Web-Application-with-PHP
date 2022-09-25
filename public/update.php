@@ -1,7 +1,7 @@
 <?php
 require 'functions.php';
 
-$data_mhs = query("SELECT * FROM mahasiswa");
+$data_mhs = query_select("SELECT * FROM mahasiswa");
 
 if (isset($_GET['data-id'])) {
     $id = $_GET['data-id'];
@@ -16,7 +16,7 @@ if (isset($_GET['data-id'])) {
         $gambar = $info['gambar'];
 
         if (isset($_GET['delete'])) {
-            query_delete("DELETE FROM mahasiswa WHERE id = " . $mhs_id);
+            query_dml("DELETE FROM mahasiswa WHERE id = " . $mhs_id);
             echo "<script>window.location.href = 'index.php';</script>";
         }
     }
