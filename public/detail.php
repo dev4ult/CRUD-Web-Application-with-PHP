@@ -23,7 +23,6 @@ if (isset($_GET['data-id'])) {
 }
 
 
-
 ?>
 
 <!DOCTYPE html>
@@ -65,7 +64,7 @@ if (isset($_GET['data-id'])) {
                 <label for="update-data" class="btn modal-button btn-primary text-white w-1/2">Edit</label>
                 <!-- delete button -->
                 <label for="delete-data"
-                    class="btn modal-button btn-error text-white w-1/2 hover:bg-red-500">Delete</label>
+                    class="btn modal-button btn-error text-white w-1/2 bg-red-500 hover:bg-red-700">Delete</label>
             </div>
             <?php else : ?>
             <h1 class='text-3xl font-semibold bg-red-500 text-white px-3 py-1'>There is no data can be showed</h1>
@@ -91,7 +90,7 @@ if (isset($_GET['data-id'])) {
             <div class="modal-box">
                 <h3 class="font-bold text-lg">Are you sure you want to delete?</h3>
                 <div class="modal-action">
-                    <a href="update.php?data-id=<?= $_GET['data-id'] ?>&delete"
+                    <a href="detail.php?data-id=<?= $_GET['data-id'] ?>&delete"
                         class="btn btn-success btn-sm w-fit text-white">Confirm</a>
                     <label for="delete-data" class="btn btn-error btn-outline btn-sm">Cancel</label>
                 </div>

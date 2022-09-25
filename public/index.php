@@ -108,7 +108,7 @@ if (isset($_POST['tambah-data'])) {
                         <td><?= $mhs['nim'] ?></td>
                         <td><?= $mhs['jurusan'] ?></td>
                         <td>
-                            <a href="update.php?data-id=<?= $id ?>" class="btn btn-info btn-sm">Edit</a>
+                            <a href="detail.php?data-id=<?= $id ?>" class="btn btn-info btn-sm text-white">Edit</a>
                         </td>
                     </tr>
                     <?php
