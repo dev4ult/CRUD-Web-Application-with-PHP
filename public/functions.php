@@ -16,3 +16,8 @@ function query($query) {
 
     return $rows;
 }
+
+function query_delete($query) {
+    global $conn;
+    mysqli_query($conn, $query);
+}

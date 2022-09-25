@@ -45,7 +45,7 @@ $data_mhs = query("SELECT * FROM mahasiswa");
                             <td><?= $mhs['nim'] ?></td>
                             <td><?= $mhs['jurusan'] ?></td>
                             <td>
-                                <a href="update.php?data-id=<?= $id ?>" class="btn btn-primary btn-sm">Edit</a>
+                                <a href="update.php?data-id=<?= $id ?>" class="btn btn-info btn-sm">Edit</a>
                             </td>
                         </tr>
                         <?php
