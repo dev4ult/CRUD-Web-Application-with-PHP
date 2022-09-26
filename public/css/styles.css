@@ -3133,10 +3133,6 @@ body[dir="rtl"] .checkbox:checked,
   margin-bottom: 2rem;
 }
 
-.ml-4 {
-  margin-left: 1rem;
-}
-
 .flex {
   display: flex;
 }

@@ -3,6 +3,11 @@ require 'functions.php';
 $data_mhs = query_select("SELECT * FROM mahasiswa");
 
 if (isset($_POST['tambah-data'])) {
+
+    // var_dump($_POST);
+    // var_dump($_FILES);
+    // die;
+
     $nama = htmlspecialchars($_POST['nama']);
     $email = htmlspecialchars($_POST['email']);
     $nim = htmlspecialchars($_POST['nim']);
@@ -37,7 +42,6 @@ if (isset($_GET['search'])) {
 
 <body class='font-poppins'>
     <main class="container max-w-6xl mx-auto px-3">
-
         <div class="flex gap-4 my-5">
             <!-- add data button -->
             <label for="add-button" class="btn modal-button btn-sm btn-success hover:bg-green-500 text-white">Tambah
@@ -80,7 +84,7 @@ if (isset($_GET['search'])) {
         <div class="modal modal-bottom sm:modal-middle">
             <div class="modal-box">
                 <h3 class="font-bold text-lg mb-4">Form Tambah Mahasiswa</h3>
-                <form class="flex flex-col gap-2 " action="" method="post">
+                <form class="flex flex-col gap-2 " action="" method="post" enctype="multipart/form-data">
                     <div class="form-control ">
                         <label class="input-group input-group-sm">
                             <span>Nama</span>
@@ -91,14 +95,14 @@ if (isset($_GET['search'])) {
                     <div class="form-control ">
                         <label class="input-group input-group-sm">
                             <span>Email</span>
-                            <input type="text" placeholder="Email" class="input input-bordered input-md w-full"
+                            <input type="email" placeholder="Email" class="input input-bordered input-md w-full"
                                 name="email" />
                         </label>
                     </div>
                     <div class="form-control ">
                         <label class="input-group input-group-sm">
                             <span>NIM</span>
-                            <input type="text" placeholder="NIM" class="input input-bordered input-md w-full"
+                            <input type="number" placeholder="NIM" class="input input-bordered input-md w-full"
                                 name="nim" />
                         </label>
                     </div>
@@ -112,7 +116,7 @@ if (isset($_GET['search'])) {
                     <div class="form-control ">
                         <label class="input-group input-group-sm">
                             <span>Gambar</span>
-                            <input type="text" placeholder="Gambar" class="input input-bordered input-md w-full"
+                            <input type="file" placeholder="Gambar" class="input input-bordered input-md w-full"
                                 name="gambar" />
                         </label>
                     </div>
