@@ -16,21 +16,19 @@ if (isset($_GET['data-id'])) {
         $gambar = $info['gambar'];
 
         if (isset($_GET['delete'])) {
-            query_dml("DELETE FROM mahasiswa WHERE id = " . $mhs_id);
-            echo "<script>window.location.href = 'index.php';</script>";
+            delete_data($mhs_id);
+            echo "<script>window.location.href = 'index.php'</script>";
         }
     }
 }
 
 if (isset($_POST['save-data'])) {
-    $nama = htmlspecialchars($_POST['nama']);
-    $email = htmlspecialchars($_POST['email']);
-    $nim = htmlspecialchars($_POST['nim']);
-    $jurusan = htmlspecialchars($_POST['jurusan']);
-    $gambar = htmlspecialchars($_POST['gambar']);
-
-    query_dml("UPDATE mahasiswa SET nama = '" . $nama . "', email = '" . $email . "', nim = '" . $nim . "', jurusan = '" . $jurusan . "', gambar = '" . $gambar . "' WHERE id = '" . $mhs_id . "'");
-    echo "<script>window.location.href='detail.php?data-id=" . $id . "'</script>";
+    if (catch_post_and($_POST, "UPDATE", $mhs_id) > 0) {
+        echo "<script>alert('This Data has been changed')</script>";
+        echo "<script>window.location.href='detail.php?data-id=" . $id . "'</script>";
+    } else {
+        echo "<script>alert('Error Occured When trying to update a row of data')</script>";
+    }
 }
 
 ?>
@@ -117,7 +115,7 @@ if (isset($_POST['save-data'])) {
                     <div class="form-control ">
                         <label class="input-group input-group-sm">
                             <span>Gambar</span>
-                            <input type="text" placeholder="Gambar" class="input input-bordered input-md w-full"
+                            <input type="file" placeholder="Gambar" class="input input-bordered input-md w-full"
                                 name="gambar" value="<?=$gambar?>" />
                         </label>
                     </div>

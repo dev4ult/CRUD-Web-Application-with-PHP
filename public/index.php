@@ -3,19 +3,12 @@ require 'functions.php';
 $data_mhs = query_select("SELECT * FROM mahasiswa");
 
 if (isset($_POST['tambah-data'])) {
-
-    // var_dump($_POST);
-    // var_dump($_FILES);
-    // die;
-
-    $nama = htmlspecialchars($_POST['nama']);
-    $email = htmlspecialchars($_POST['email']);
-    $nim = htmlspecialchars($_POST['nim']);
-    $jurusan = htmlspecialchars($_POST['jurusan']);
-    $gambar = htmlspecialchars($_POST['gambar']);
-
-    query_dml("INSERT INTO mahasiswa VALUES('', '" . $nama . "', '" . $nim . "', '" . $email . "', '" . $jurusan . "', '" . $gambar . "')");
-    echo "<script>window.location.href='index.php'</script>";
+    if (catch_post_and($_POST, "INSERT", 0) > 0) {
+        echo "<script>alert('New Data Has Been Inserted')</script>";
+        echo "<script>window.location.href='index.php'</script>";
+    } else {
+        echo "<script>alert('Error Occured When trying to insert a new row of data')</script>";
+    }
 }
 
 if (isset($_GET['search'])) {
@@ -44,7 +37,7 @@ if (isset($_GET['search'])) {
     <main class="container max-w-6xl mx-auto px-3">
         <div class="flex gap-4 my-5">
             <!-- add data button -->
-            <label for="add-button" class="btn modal-button btn-sm btn-success hover:bg-green-500 text-white">Tambah
+            <label for="add-button" class="btn modal-button btn-sm  text-white">Tambah
                 Mahasiswa</label>
 
             <div class="form-control">
@@ -148,11 +141,12 @@ if (isset($_GET['search'])) {
                     </tr>
                 </thead>
                 <tbody>
-                    <?php $id = 1;
-foreach ($data_mhs as $mhs): ?>
+                    <?php $id = 1;foreach ($data_mhs as $mhs): ?>
                     <tr>
                         <th><?=$id?></th>
-                        <td><?=$mhs['gambar']?></td>
+                        <td><img src="./img/pfp/<?=$mhs['gambar']?>" alt="<?=$mhs['nama']?> profile pic"
+                                class="w-20 object-cover">
+                        </td>
                         <td><?=$mhs['nama']?></td>
                         <td><?=$mhs['email']?></td>
                         <td><?=$mhs['nim']?></td>
@@ -161,9 +155,7 @@ foreach ($data_mhs as $mhs): ?>
                             <a href="detail.php?data-id=<?=$id?>" class="btn btn-info btn-sm text-white">Edit</a>
                         </td>
                     </tr>
-                    <?php
-$id++;
-endforeach?>
+                    <?php $id++;endforeach?>
                 </tbody>
                 <tfoot>
                     <tr>
