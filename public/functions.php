@@ -84,3 +84,45 @@ function upload_img($nama_mhs, $nim_mhs)
     return $full_file_name;
 
 }
+
+function register($data)
+{
+    global $conn;
+
+    $username = strtolower(stripslashes($data['username']));
+    $email = $data['email'];
+    $password = mysqli_real_escape_string($conn, $data['password']);
+    $password2 = mysqli_real_escape_string($conn, $data['password2']);
+
+    if ($password !== $password2) {
+        echo "<script>
+                alert('Password Confirmation does not match with your Password');
+              </script>";
+        return false;
+    }
+
+    $password = password_hash($password, PASSWORD_DEFAULT);
+
+    $find_username = mysqli_query($conn, "SELECT username FROM user WHERE username = '$username'");
+
+    if (mysqli_fetch_assoc($find_username)) {
+        echo "<script>alert('This username has been registered')</script>";
+        return false;
+    }
+
+    $find_email = mysqli_query($conn, "SELECT email FROM user WHERE email = '$email'");
+
+    if (mysqli_fetch_assoc($find_email)) {
+        echo "<script>alert('This email has been registered')</script>";
+        return false;
+    }
+
+    $check_total = mysqli_query($conn, "SELECT username FROM user");
+    if (mysqli_num_rows($check_total) > 10) {
+        echo "<script>alert('The registration form submit has reach its limit, We are sorry that we can not accept more registration than this')</script>";
+        return false;
+    }
+
+    mysqli_query($conn, "INSERT INTO user VALUES ('', '$username', '$email', '$password', 'NOT VERIVIED')");
+    return mysqli_affected_rows($conn);
+}
