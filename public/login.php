@@ -2,6 +2,12 @@
 
 session_start();
 
+if (isset($_COOKIE['login'])) {
+    if ($_COOKIE['login'] == 'true') {
+        $_SESSION['login'] = true;
+    }
+}
+
 if (isset($_SESSION['login'])) {
     echo "<script>alert('You are already login')</script>";
     header("Location: index.php");
@@ -25,8 +31,15 @@ if (isset($_POST['login'])) {
 
         if (password_verify($password, $row['password'])) {
             echo "<script>alert('Login Berhasil')</script>";
-            header("Location: index.php");
             $_SESSION['login'] = true;
+
+            if (isset($_POST['remember-me'])) {
+
+                setcookie('id', $row['id'], time() + 60);
+                setcookie('id', hash('sha256', $row['username']), time() + 60);
+            }
+
+            header("Location: index.php");
             exit;
         } else {
             echo "<h2 class='text-red-500 italic'>username atau password salah</h2>";
@@ -61,6 +74,12 @@ if (isset($_POST['login'])) {
                     <span>password</span>
                     <input type="password" placeholder="Type here" class="input input-bordered input-md"
                         name="password" />
+                </label>
+            </div>
+            <div class="form-control">
+                <label class="label cursor-pointer">
+                    <span class="label-text">Remember me</span>
+                    <input type="checkbox" class="checkbox checkbox-primary" name="remember-me" />
                 </label>
             </div>
             <div>
