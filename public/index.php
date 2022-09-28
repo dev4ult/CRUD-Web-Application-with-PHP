@@ -1,4 +1,12 @@
 <?php
+session_start();
+
+if (!isset($_SESSION['login'])) {
+    echo "<script>alert('You are not login yet')</script>";
+    header("Location: login.php");
+    exit;
+}
+
 require 'functions.php';
 $data_mhs = query_select("SELECT * FROM mahasiswa");
 
@@ -69,6 +77,7 @@ if (isset($_GET['search'])) {
             })
             </script>
 
+            <a href="logout.php" class="btn btn-error btn-sm text-white bg-red-500">Log out</a>
         </div>
 
 
