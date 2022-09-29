@@ -9,7 +9,7 @@ if (!isset($_SESSION['login'])) {
 
 require 'functions.php';
 
-$data_per_page = 10;
+$data_per_page = 5;
 $total_page = ceil(count(query_select("SELECT * FROM mahasiswa")) / $data_per_page);
 $page_number = (isset($_GET['page'])) ? (int) $_GET['page'] : 1;
 
@@ -24,8 +24,8 @@ $data_mhs = query_select("SELECT * FROM mahasiswa LIMIT $first_data, $data_per_p
 
 if (isset($_POST['tambah-data'])) {
     if (catch_post_and($_POST, "INSERT", 0) > 0) {
-        header('Location: index.php');
-        exit;
+        echo "<script>window.location.href='index.php'</script>";
+
     } else {
         echo "<script>alert('Error Occured When trying to insert a new row of data')</script>";
     }
