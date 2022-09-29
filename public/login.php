@@ -1,9 +1,16 @@
 <?php
 
 session_start();
+require 'functions.php';
 
-if (isset($_COOKIE['login'])) {
-    if ($_COOKIE['login'] == 'true') {
+if (isset($_COOKIE['id']) && isset($_COOKIE['key'])) {
+    $id = $_COOKIE['id'];
+    $key = $_COOKIE['key'];
+
+    $result = mysqli_query($conn, "SELECT username FROM user WHERE id = $id");
+    $row = mysqli_fetch_assoc($result);
+
+    if ($key === hash('sha256', $row['username'])) {
         $_SESSION['login'] = true;
     }
 }
@@ -13,8 +20,6 @@ if (isset($_SESSION['login'])) {
     header("Location: index.php");
     exit;
 }
-
-require 'functions.php';
 
 if (isset($_POST['login'])) {
     $umail = $_POST['umail'];
