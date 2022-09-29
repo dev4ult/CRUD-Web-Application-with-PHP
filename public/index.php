@@ -8,7 +8,19 @@ if (!isset($_SESSION['login'])) {
 }
 
 require 'functions.php';
-$data_mhs = query_select("SELECT * FROM mahasiswa");
+
+$data_per_page = 2;
+$total_page = ceil(count(query_select("SELECT * FROM mahasiswa")) / $data_per_page);
+$page_number = (isset($_GET['page'])) ? (int) $_GET['page'] : 1;
+
+if ($page_number < 1) {
+    header("Location: index.php");
+    exit;
+}
+
+$first_data = ($page_number - 1) * $data_per_page;
+
+$data_mhs = query_select("SELECT * FROM mahasiswa LIMIT $first_data, $data_per_page");
 
 if (isset($_POST['tambah-data'])) {
     if (catch_post_and($_POST, "INSERT", 0) > 0) {
@@ -47,7 +59,19 @@ if (isset($_GET['search'])) {
             <!-- add data button -->
             <label for="add-button" class="btn modal-button btn-sm  text-white">Tambah
                 Mahasiswa</label>
-
+            <?php if ($total_page > 1): ?>
+            <div class="btn-group btn-pagination">
+                <?php for ($i = 1; $i <= $total_page; $i++): ?>
+                    <?php if ((!isset($_GET['page']) || $_GET['page'] == 1) && $i == 1): ?>
+                    <a href="index.php?page=<?=$i?>" class="btn btn-sm btn-active"><?=$i?></a>
+                    <?php elseif (isset($_GET['page']) && $_GET['page'] == $i): ?>
+                    <a href="index.php?page=<?=$i?>" class="btn btn-sm btn-active"><?=$i?></a>
+                    <?php else: ?>
+                    <a href="index.php?page=<?=$i?>" class="btn btn-sm"><?=$i?></a>
+                    <?php endif?>
+                <?php endfor;?>
+            </div>
+            <?php endif;?>
             <div class="form-control">
                 <div class="input-group">
                     <input type="text" id="search-key" placeholder="Search…" class="input input-sm input-bordered" />
