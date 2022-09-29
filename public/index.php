@@ -33,7 +33,11 @@ if (isset($_POST['tambah-data'])) {
 
 if (isset($_GET['search'])) {
     $key = $_GET['search'];
-    $data_mhs = query_select("SELECT * FROM mahasiswa WHERE nama LIKE '%" . $key . "%' OR nim LIKE '%" . $key . "%' OR email LIKE '%" . $key . "%' OR jurusan LIKE '%" . $key . "%'");
+    $data_mhs = query_select("SELECT * FROM mahasiswa WHERE
+        nama LIKE '%" . $key . "%' OR
+        nim LIKE '%" . $key . "%' OR
+        email LIKE '%" . $key . "%' OR
+        jurusan LIKE '%" . $key . "%'");
 }
 
 ?>
@@ -62,19 +66,20 @@ if (isset($_GET['search'])) {
             <?php if ($total_page > 1): ?>
             <div class="btn-group btn-pagination">
                 <?php for ($i = 1; $i <= $total_page; $i++): ?>
-                    <?php if ((!isset($_GET['page']) || $_GET['page'] == 1) && $i == 1): ?>
-                    <a href="index.php?page=<?=$i?>" class="btn btn-sm btn-active"><?=$i?></a>
-                    <?php elseif (isset($_GET['page']) && $_GET['page'] == $i): ?>
-                    <a href="index.php?page=<?=$i?>" class="btn btn-sm btn-active"><?=$i?></a>
-                    <?php else: ?>
-                    <a href="index.php?page=<?=$i?>" class="btn btn-sm"><?=$i?></a>
-                    <?php endif?>
+                <?php if ((!isset($_GET['page']) || $_GET['page'] == 1) && $i == 1): ?>
+                <a href="index.php?page=<?=$i?>" class="btn btn-sm btn-active"><?=$i?></a>
+                <?php elseif (isset($_GET['page']) && $_GET['page'] == $i): ?>
+                <a href="index.php?page=<?=$i?>" class="btn btn-sm btn-active"><?=$i?></a>
+                <?php else: ?>
+                <a href="index.php?page=<?=$i?>" class="btn btn-sm"><?=$i?></a>
+                <?php endif?>
                 <?php endfor;?>
             </div>
             <?php endif;?>
             <div class="form-control">
                 <div class="input-group">
-                    <input type="text" id="search-key" placeholder="Search…" class="input input-sm input-bordered" />
+                    <input type="text" id="search-keyword" placeholder="Search…"
+                        class="input input-sm input-bordered" />
                     <button id="search-btn" class="btn btn-sm btn-square">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
                             stroke="currentColor">
@@ -188,7 +193,9 @@ if (isset($_GET['search'])) {
             </table>
         </div>
     </main>
-    <script src="./js/script.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"
+        integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+    <script src="js/script.js"></script>
 </body>
 
 </html>
