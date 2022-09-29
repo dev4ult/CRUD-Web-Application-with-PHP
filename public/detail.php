@@ -16,6 +16,7 @@ if (isset($_GET['data-id'])) {
         $gambar = $info['gambar'];
 
         if (isset($_GET['delete'])) {
+            unlink('./img/pfp/' . $gambar);
             delete_data($mhs_id);
             echo "<script>window.location.href = 'index.php'</script>";
         }

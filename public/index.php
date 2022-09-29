@@ -24,8 +24,8 @@ $data_mhs = query_select("SELECT * FROM mahasiswa LIMIT $first_data, $data_per_p
 
 if (isset($_POST['tambah-data'])) {
     if (catch_post_and($_POST, "INSERT", 0) > 0) {
-        echo "<script>alert('New Data Has Been Inserted')</script>";
-        echo "<script>window.location.href='index.php'</script>";
+        header('Location: index.php');
+        exit;
     } else {
         echo "<script>alert('Error Occured When trying to insert a new row of data')</script>";
     }
@@ -178,14 +178,14 @@ if (isset($_GET['search'])) {
                     <tr>
                         <th><?=$id?></th>
                         <td><img src="./img/pfp/<?=$mhs['gambar']?>" alt="<?=$mhs['nama']?> profile pic"
-                                class="w-20 object-cover">
+                                class="w-20 h-20 object-cover">
                         </td>
                         <td><?=$mhs['nama']?></td>
                         <td><?=$mhs['email']?></td>
                         <td><?=$mhs['nim']?></td>
                         <td><?=$mhs['jurusan']?></td>
                         <td>
-                            <a href="detail.php?data-id=<?=$id?>" class="btn btn-info btn-sm text-white">Edit</a>
+                            <a href="detail.php?data-id=<?=$id + $first_data?>" class="btn btn-info btn-sm text-white">Edit</a>
                         </td>
                     </tr>
                     <?php $id++;endforeach?>

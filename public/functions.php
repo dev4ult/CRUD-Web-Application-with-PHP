@@ -77,9 +77,9 @@ function upload_img($nama_mhs, $nim_mhs)
         return false;
     }
 
-    move_uploaded_file($nama_tmp, './img/pfp/' . $nama_file . $nama_mhs . $nim_mhs);
+    $full_file_name = $nama_mhs . $nim_mhs . time();
 
-    $full_file_name = $nama_file . $nama_mhs . $nim_mhs;
+    move_uploaded_file($nama_tmp, './img/pfp/' . $full_file_name);
 
     return $full_file_name;
 

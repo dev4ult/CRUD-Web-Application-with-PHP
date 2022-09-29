@@ -3283,6 +3283,10 @@ body[dir="rtl"] .checkbox:checked,
   height: 100vh;
 }
 
+.h-20 {
+  height: 5rem;
+}
+
 .w-fit {
   width: -webkit-fit-content;
   width: -moz-fit-content;
