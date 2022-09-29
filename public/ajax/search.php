@@ -2,7 +2,7 @@
 
 require '../functions.php';
 
-$key = $_GET['search'];
+$key = $_GET['keyword'];
 
 $selected_mhs = query_select("SELECT * FROM mahasiswa WHERE nama LIKE '%" . $key . "%' OR nim LIKE '%" . $key . "%' OR email LIKE '%" . $key . "%' OR jurusan LIKE '%" . $key . "%'");
 
