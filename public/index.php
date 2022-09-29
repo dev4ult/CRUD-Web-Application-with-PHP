@@ -9,7 +9,7 @@ if (!isset($_SESSION['login'])) {
 
 require 'functions.php';
 
-$data_per_page = 2;
+$data_per_page = 10;
 $total_page = ceil(count(query_select("SELECT * FROM mahasiswa")) / $data_per_page);
 $page_number = (isset($_GET['page'])) ? (int) $_GET['page'] : 1;
 
@@ -85,22 +85,6 @@ if (isset($_GET['search'])) {
                 </div>
             </div>
 
-            <script>
-            const searchBtn = document.querySelector('#search-btn');
-            const searchKey = document.querySelector('#search-key');
-            searchBtn.addEventListener('click', _ => {
-                const key = searchKey.value;
-                window.location.href = 'index.php?search=' + key;
-            })
-
-            searchKey.addEventListener('keypress', event => {
-                if (event.key == 'Enter') {
-                    const key = searchKey.value;
-                    window.location.href = 'index.php?search=' + key;
-                }
-            })
-            </script>
-
             <a href="logout.php" class="btn btn-error btn-sm text-white bg-red-500">Log out</a>
         </div>
 
@@ -160,7 +144,7 @@ if (isset($_GET['search'])) {
         </div>
 
 
-        <div class="overflow-x-auto">
+        <div class="overflow-x-auto" id="data-container">
             <table class="table table-compact w-full">
                 <thead>
                     <tr>
@@ -174,9 +158,9 @@ if (isset($_GET['search'])) {
                     </tr>
                 </thead>
                 <tbody>
-                    <?php $id = 1;foreach ($data_mhs as $mhs): ?>
+                    <?php $list_num = 1;foreach ($data_mhs as $mhs): ?>
                     <tr>
-                        <th><?=$id?></th>
+                        <th><?=$list_num?></th>
                         <td><img src="./img/pfp/<?=$mhs['gambar']?>" alt="<?=$mhs['nama']?> profile pic"
                                 class="w-20 h-20 object-cover">
                         </td>
@@ -185,10 +169,10 @@ if (isset($_GET['search'])) {
                         <td><?=$mhs['nim']?></td>
                         <td><?=$mhs['jurusan']?></td>
                         <td>
-                            <a href="detail.php?data-id=<?=$id + $first_data?>" class="btn btn-info btn-sm text-white">Edit</a>
+                            <a href="detail.php?data-id=<?=$mhs['id']?>" class="btn btn-info btn-sm text-white">Edit</a>
                         </td>
                     </tr>
-                    <?php $id++;endforeach?>
+                    <?php $list_num++;endforeach?>
                 </tbody>
                 <tfoot>
                     <tr>
@@ -204,6 +188,7 @@ if (isset($_GET['search'])) {
             </table>
         </div>
     </main>
+    <script src="./js/script.js"></script>
 </body>
 
 </html>

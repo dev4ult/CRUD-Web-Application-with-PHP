@@ -1,25 +1,32 @@
 <?php
 require 'functions.php';
 
-$data_mhs = query_select("SELECT * FROM mahasiswa");
-
 if (isset($_GET['data-id'])) {
     $id = $_GET['data-id'];
-    if ($id >= 1 && $id <= sizeof($data_mhs)) {
-        $info = $data_mhs[$_GET['data-id'] - 1];
+    try {
+        $selected_mhs = query_select("SELECT * FROM mahasiswa WHERE id = $id")[0];
+    } catch (Exception $e) {
+        $id = (int) $id;
+        header("Location: detail.php?data-id=$id");
+        exit;
+    }
 
-        $mhs_id = $info['id'];
-        $nama = $info['nama'];
-        $email = $info['email'];
-        $nim = $info['nim'];
-        $jurusan = $info['jurusan'];
-        $gambar = $info['gambar'];
+    if ($selected_mhs) {
+        $mhs_id = $selected_mhs['id'];
+        $nama = $selected_mhs['nama'];
+        $email = $selected_mhs['email'];
+        $nim = $selected_mhs['nim'];
+        $jurusan = $selected_mhs['jurusan'];
+        $gambar = $selected_mhs['gambar'];
 
         if (isset($_GET['delete'])) {
             unlink('./img/pfp/' . $gambar);
             delete_data($mhs_id);
             echo "<script>window.location.href = 'index.php'</script>";
         }
+    } else {
+        header("Location: index.php");
+        exit;
     }
 }
 
@@ -55,9 +62,8 @@ if (isset($_POST['save-data'])) {
             <a class="btn btn-warning w-fit mb-4" href="index.php">
                 <img src="./img/logo/back-arrow.svg" alt="back button" class="w-8">
             </a>
-            <?php if (isset($_GET['data-id']) && $_GET['data-id'] >= 1 && $_GET['data-id'] <= sizeof($data_mhs)): ?>
+            <?php if (isset($_GET['data-id'])): ?>
             <div class="stats stats-vertical lg:stats-horizontal shadow">
-
                 <div class="stat">
                     <div class="stat-title">Nama / Email</div>
                     <div class="stat-value"><?=$nama?></div>
@@ -69,7 +75,6 @@ if (isset($_POST['save-data'])) {
                     <div class="stat-value"><?=$nim?></div>
                     <div class="stat-desc text-lg"><?=$jurusan?></div>
                 </div>
-
             </div>
             <div class="flex">
                 <!-- update-button -->

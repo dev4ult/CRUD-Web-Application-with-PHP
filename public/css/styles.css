@@ -3279,12 +3279,12 @@ body[dir="rtl"] .checkbox:checked,
   height: 1.5rem;
 }
 
-.h-screen {
-  height: 100vh;
-}
-
 .h-20 {
   height: 5rem;
+}
+
+.h-screen {
+  height: 100vh;
 }
 
 .w-fit {
