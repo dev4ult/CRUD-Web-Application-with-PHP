@@ -71,9 +71,10 @@ if (isset($_POST['login'])) {
 
 <body>
     <main class="container max-w-6xl mx-auto px-3 h-screen flex items-center justify-center font-poppins">
-        <form action="" method="post" class="p-8 rounded-lg shadow-lg border-2 border-gray-100">
-            <div class="mb-7">
-                <h1 class="text-2xl font-bold text-center">Login</h1>
+        <form action="" method="post" class="p-8 rounded-lg shadow-lg border-2 border-gray-100 max-w-[22rem]">
+            <div class="text-center mb-7">
+                <h1 class="text-2xl font-bold mb-2">Login</h1>
+                <p class="text-sm">Enter your details to get sign in to your account</p>
             </div>
             <div class="form-control">
                 <label class="input-group input-group-sm">
