@@ -40,7 +40,7 @@ if (isset($_POST['login'])) {
 
             if (isset($_POST['remember-me'])) {
 
-                setcookie('id', $row['id'], time() + 60);
+                setcookie('id', $row['id'], time() + 3600);
                 setcookie('id', hash('sha256', $row['username']), time() + 60);
             }
 
@@ -62,33 +62,48 @@ if (isset($_POST['login'])) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Page</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="./css/styles.css">
 </head>
 
 <body>
-    <main class="container max-w-6xl mx-auto px-3 h-screen flex items-center justify-center">
-        <form action="" method="post">
-            <div class="form-control">
-                <label class="input-group input-group-md">
-                    <span>username / email</span>
-                    <input type="text" placeholder="Type here" class="input input-bordered input-md" name="umail" />
-                </label>
+    <main class="container max-w-6xl mx-auto px-3 h-screen flex items-center justify-center font-poppins">
+        <form action="" method="post" class="p-8 rounded-lg shadow-lg border-2 border-gray-100">
+            <div class="mb-7">
+                <h1 class="text-2xl font-bold text-center">Login</h1>
             </div>
             <div class="form-control">
+                <label class="input-group input-group-sm">
+                    <span class="btn-success"><img src="./img/logo/user.svg" alt="user logo" class="w-8"></span>
+                    <input type="text" placeholder="Username / Email" class="input input-bordered input-md w-full"
+                        name="umail" />
+                </label>
+            </div>
+            <div class="form-control my-3">
                 <label class="input-group input-group-md">
-                    <span>password</span>
-                    <input type="password" placeholder="Type here" class="input input-bordered input-md"
+                    <span class="btn-success"><img src="./img/logo/password.svg" alt="asterisk logo" class="w-8"></span>
+                    <input type="password" placeholder="Password" class="input input-bordered input-md w-full"
                         name="password" />
                 </label>
             </div>
             <div class="form-control">
-                <label class="label cursor-pointer">
-                    <span class="label-text">Remember me</span>
-                    <input type="checkbox" class="checkbox checkbox-primary" name="remember-me" />
+                <label class="label cursor-pointer w-fit">
+                    <span class="label-text mr-1.5 font-bold">Remember me</span>
+                    <input type="checkbox" class="checkbox checkbox-accent h-4 w-4" name="remember-me" />
                 </label>
             </div>
+            <div class="mb-4 mt-6">
+                <button type="submit"
+                    class="btn-success rounded-sm w-full text-white text-lg py-1 font-semibold uppercase"
+                    name="login">Login</button>
+            </div>
             <div>
-                <input type="submit" value="Login" class="btn btn-success btn-sm" name="login">
+                <span href="" class="block text-sm text-center">Don't have an account? <a href="registration.php"
+                        class="font-bold">Sign
+                        up</a></span>
             </div>
         </form>
     </main>
