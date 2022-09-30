@@ -73,7 +73,7 @@ if (isset($_POST['login'])) {
     <main class="container max-w-6xl mx-auto px-3 h-screen flex items-center justify-center font-poppins">
         <form action="" method="post" class="p-8 rounded-lg shadow-lg border-2 border-gray-100 max-w-[22rem]">
             <div class="text-center mb-7">
-                <h1 class="text-2xl font-bold mb-2">Login</h1>
+                <h1 class="text-2xl font-bold mb-2">Login as admin</h1>
                 <p class="text-sm">Enter your details to get sign in to your account</p>
             </div>
             <div class="form-control">
@@ -97,8 +97,7 @@ if (isset($_POST['login'])) {
                 </label>
             </div>
             <div class="mb-4 mt-6">
-                <button type="submit"
-                    class="btn-success rounded-sm w-full text-white text-lg py-1 font-semibold uppercase"
+                <button type="submit" class="btn-success rounded-sm w-full text-white text-lg py-2 font-semibold"
                     name="login">Login</button>
             </div>
             <div>
