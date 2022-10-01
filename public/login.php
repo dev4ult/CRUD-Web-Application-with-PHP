@@ -97,7 +97,8 @@ if (isset($_POST['login'])) {
                 </label>
             </div>
             <div class="mb-4 mt-6">
-                <button type="submit" class="btn-success rounded-sm w-full text-white text-lg py-2 font-semibold"
+                <button type="submit"
+                    class="btn-success uppercase rounded-sm w-full text-white text-lg py-2 font-semibold"
                     name="login">Login</button>
             </div>
             <div>

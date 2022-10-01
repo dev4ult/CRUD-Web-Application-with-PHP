@@ -73,7 +73,8 @@ if (isset($_POST['signup-btn'])) {
                     </label>
                 </div>
                 <div class="mt-8">
-                    <button type="submit" class="btn-success w-full py-2 text-lg text-white font-semibold rounded-sm"
+                    <button type="submit"
+                        class="btn-success w-full py-2 text-lg text-white font-semibold rounded-sm uppercase"
                         name="signup-btn">Create an
                         Account</button>
                 </div>
