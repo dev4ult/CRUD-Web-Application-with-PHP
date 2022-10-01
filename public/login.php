@@ -69,9 +69,9 @@ if (isset($_POST['login'])) {
     <link rel="stylesheet" href="./css/styles.css">
 </head>
 
-<body>
+<body class="bg-gray-100">
     <main class="container max-w-6xl mx-auto px-3 h-screen flex items-center justify-center font-poppins">
-        <form action="" method="post" class="p-8 rounded-lg shadow-lg border-2 border-gray-100 max-w-[22rem]">
+        <form action="" method="post" class="p-8 rounded-lg shadow-lg max-w-[22rem] bg-white">
             <div class="text-center mb-7">
                 <h1 class="text-2xl font-bold mb-2">Login as admin</h1>
                 <p class="text-sm">Enter your details to get sign in to your account</p>

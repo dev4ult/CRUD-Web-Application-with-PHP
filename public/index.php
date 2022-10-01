@@ -57,19 +57,19 @@ if (isset($_GET['search'])) {
     <title>Tabel Mahasiswa</title>
 </head>
 
-<body class='font-poppins'>
+<body class='font-poppins bg-gray-100 h-screen py-10'>
     <main class="container max-w-6xl mx-auto px-3">
         <div class="flex gap-4 my-5">
             <!-- add data button -->
-            <label for="add-button" class="btn modal-button btn-sm  text-white">Tambah
+            <label for="add-button" class="btn modal-button btn-sm btn-success text-white">Tambah
                 Mahasiswa</label>
             <?php if ($total_page > 1): ?>
             <div class="btn-group btn-pagination">
                 <?php for ($i = 1; $i <= $total_page; $i++): ?>
                 <?php if ((!isset($_GET['page']) || $_GET['page'] == 1) && $i == 1): ?>
-                <a href="index.php?page=<?=$i?>" class="btn btn-sm btn-active"><?=$i?></a>
+                <a href="index.php?page=<?=$i?>" class="btn btn-sm btn-warning"><?=$i?></a>
                 <?php elseif (isset($_GET['page']) && $_GET['page'] == $i): ?>
-                <a href="index.php?page=<?=$i?>" class="btn btn-sm btn-active"><?=$i?></a>
+                <a href="index.php?page=<?=$i?>" class="btn btn-sm btn-warning"><?=$i?></a>
                 <?php else: ?>
                 <a href="index.php?page=<?=$i?>" class="btn btn-sm"><?=$i?></a>
                 <?php endif?>
@@ -148,48 +148,46 @@ if (isset($_GET['search'])) {
             </div>
         </div>
 
-
-        <div class="overflow-x-auto" id="data-container">
-            <table class="table table-compact w-full">
+        <div class="overflow-x-auto w-full shadow-md">
+            <table class="table w-full">
+                <!-- head -->
                 <thead>
                     <tr>
-                        <th></th>
-                        <th></th>
-                        <th>Nama</th>
-                        <th>Email</th>
-                        <th>NIM</th>
-                        <th>Jurusan</th>
-                        <th></th>
+                        <th class="rounded-none bg-black text-white">Nama / Email</th>
+                        <th class="bg-black text-white">Jurusan / NIM</th>
+                        <th class="rounded-none bg-black"></th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="data-container">
+
                     <?php $list_num = 1;foreach ($data_mhs as $mhs): ?>
+
                     <tr>
-                        <th><?=$list_num?></th>
-                        <td><img src="./img/pfp/<?=$mhs['gambar']?>" alt="<?=$mhs['nama']?> profile pic"
-                                class="w-20 h-20 object-cover">
+                        <td class="rounded-none">
+                            <div class="flex items-center space-x-3">
+                                <div class="avatar">
+                                    <div class="mask mask-squircle w-12 h-12">
+                                        <img src="./img/pfp/<?=$mhs['gambar']?>" alt="<?=$mhs['nama']?> profile pic">
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="font-bold"><?=$mhs['nama']?></div>
+                                    <div class="text-sm opacity-50"><?=$mhs['email']?></div>
+                                </div>
+                            </div>
                         </td>
-                        <td><?=$mhs['nama']?></td>
-                        <td><?=$mhs['email']?></td>
-                        <td><?=$mhs['nim']?></td>
-                        <td><?=$mhs['jurusan']?></td>
                         <td>
-                            <a href="detail.php?data-id=<?=$mhs['id']?>" class="btn btn-info btn-sm text-white">Edit</a>
+                            <?=$mhs['jurusan']?>
+                            <br />
+                            <span class="badge badge-ghost badge-sm"><?=$mhs['nim']?></span>
                         </td>
+                        <th class="rounded-none">
+                            <button class="btn btn-ghost btn-xs">details</button>
+                        </th>
                     </tr>
                     <?php $list_num++;endforeach?>
+
                 </tbody>
-                <tfoot>
-                    <tr>
-                        <th></th>
-                        <th></th>
-                        <th>Nama</th>
-                        <th>Email</th>
-                        <th>NIM</th>
-                        <th>Jurusan</th>
-                        <th></th>
-                    </tr>
-                </tfoot>
             </table>
         </div>
     </main>

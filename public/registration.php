@@ -28,11 +28,10 @@ if (isset($_POST['signup-btn'])) {
     <title>Registration Page</title>
 </head>
 
-<body>
+<body class="bg-gray-100">
     <main
         class="container max-w-6xl mx-auto px-3 flex items-center justify-center h-screen font-poppins flex-col gap-2">
-        <div
-            class="border-2 border-gray-100 shadow-lg p-8 flex flex-col gap-4 sm:flex-row sm:gap-10 sm:items-center rounded-md">
+        <div class="shadow-lg p-8 flex flex-col gap-4 sm:flex-row sm:gap-10 sm:items-center rounded-md bg-white">
             <section>
                 <img src="./img/illustration/juicy-girl-waving-from-laptop.png" alt="girl waving from laptop"
                     class="sm:hidden">
