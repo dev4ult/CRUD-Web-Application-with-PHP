@@ -67,7 +67,7 @@ if (isset($_POST['signup-btn'])) {
                 </div>
                 <div class="form-control">
                     <label class="input-group">
-                        <input type="password" placeholder="Confirm your password"
+                        <input type="password" placeholder="Confirm Password"
                             class="input focus:outline-none mt-2 border-0 border-b-2 border-gray-200" name="password2"
                             required />
                     </label>

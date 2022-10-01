@@ -33,7 +33,7 @@ if (isset($_GET['data-id'])) {
 if (isset($_POST['save-data'])) {
     if (catch_post_and($_POST, "UPDATE", $mhs_id) > 0) {
         echo "<script>alert('This Data has been changed')</script>";
-        echo "<script>window.location.href='detail.php?data-id=" . $id . "'</script>";
+        echo "<script>window.location.href='detail.php?data-id=" . $mhs_id . "'</script>";
     } else {
         echo "<script>alert('Error Occured When trying to update a row of data')</script>";
     }
@@ -90,39 +90,37 @@ if (isset($_POST['save-data'])) {
             <div class="modal-box relative">
                 <h3 class="font-bold text-lg mb-8">Form Ubah Data</h3>
                 <form class="flex flex-col gap-2" action="" method="post">
-                    <div class="form-control ">
+                    <div class="form-control grid grid-cols-2 w-full gap-4">
                         <label class="input-group input-group-sm">
-                            <span>Nama</span>
                             <input type="text" placeholder="Nama" class="input input-bordered input-md w-full"
                                 name="nama" value="<?=$nama?>" />
                         </label>
-                    </div>
-                    <div class="form-control ">
                         <label class="input-group input-group-sm">
-                            <span>Email</span>
-                            <input type="text" placeholder="Email" class="input input-bordered input-md w-full"
+                            <input type="email" placeholder="Email" class="input input-bordered input-md w-full"
                                 name="email" value="<?=$email?>" />
                         </label>
                     </div>
-                    <div class="form-control ">
-                        <label class="input-group input-group-sm">
-                            <span>NIM</span>
-                            <input type="text" placeholder="NIM" class="input input-bordered input-md w-full" name="nim"
-                                value="<?=$nim?>" />
-                        </label>
+                    <div class="form-control">
+                        <select class="select focus:outline-none w-full pl-4 border-2 border-gray-200 font-normal"
+                            name="jurusan" value="<?=$jurusan?>">
+                            <option disabled selected><?=$jurusan?></option>
+                            <option value="Teknik Informatika dan Komputer">Teknik Informatika dan Komputer</option>
+                            <option value="Teknik Elektro">Teknik Elektro</option>
+                            <option value="Administrasi Niaga">Administrasi Niaga</option>
+                            <option value="Teknik Sipil">Teknik Sipil</option>
+                            <option value="Teknik Mesin">Teknik Mesin</option>
+                            <option value="Akuntansi">Akuntansi</option>
+                            <option value="Teknik Grafika dan Penerbitan">Teknik Grafika dan Penerbitan</option>
+                        </select>
                     </div>
-                    <div class="form-control ">
+                    <div class="form-control grid grid-cols-2 w-full gap-4">
                         <label class="input-group input-group-sm">
-                            <span>Jurusan</span>
-                            <input type="text" placeholder="Jurusan" class="input input-bordered input-md w-full"
-                                name="jurusan" value="<?=$jurusan?>" />
+                            <input type="number" placeholder="NIM" class="input input-bordered input-md w-full"
+                                name="nim" value="<?=$nim?>" />
                         </label>
-                    </div>
-                    <div class="form-control ">
                         <label class="input-group input-group-sm">
-                            <span>Gambar</span>
-                            <input type="file" placeholder="Gambar" class="input input-bordered input-md w-full"
-                                name="gambar" value="<?=$gambar?>" />
+                            <span class="w-full btn bg-black" id="file-name"><?=$gambar?></span>
+                            <input type="file" id="file-img" class="w-full hidden" name="gambar" />
                         </label>
                     </div>
                     <div class="modal-action">
@@ -152,11 +150,10 @@ if (isset($_POST['save-data'])) {
         <?php else: ?>
         <h1 class='text-3xl font-semibold bg-red-500 text-white px-3 py-1'>There is no data can be showed</h1>
         <?php endif?>
-
-
-
-
     </main>
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"
+        integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+    <script src="./js/script.js"></script>
 </body>
 
 </html>

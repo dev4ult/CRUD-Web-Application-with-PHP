@@ -38,7 +38,7 @@ function catch_post_and($data, $query_command, $id)
         return false;
     }
 
-    if ($query_command == 'UPDATE') {
+    if ($query_command == "UPDATE") {
         $query = "UPDATE mahasiswa SET nama = '" . $nama . "', email = '" . $email . "', nim = '" . $nim . "', jurusan = '" . $jurusan . "', gambar = '" . $gambar . "' WHERE id = '" . $id . "'";
     } else {
         $query = "INSERT INTO mahasiswa VALUES('', '" . $nama . "', '" . $nim . "', '" . $email . "', '" . $jurusan . "', '" . $gambar . "')";
@@ -51,6 +51,7 @@ function catch_post_and($data, $query_command, $id)
 
 function upload_img($nama_mhs, $nim_mhs)
 {
+    var_dump($_FILES);
 
     $nama_file = $_FILES['gambar']['name'];
     $ukuran_file = $_FILES['gambar']['size'];
@@ -77,7 +78,7 @@ function upload_img($nama_mhs, $nim_mhs)
         return false;
     }
 
-    $full_file_name = $nama_mhs . $nim_mhs . time();
+    $full_file_name = str_replace(' ', '', $nama_mhs . '-' . $nim_mhs . '-' . time());
 
     move_uploaded_file($nama_tmp, './img/pfp/' . $full_file_name);
 
