@@ -34,14 +34,18 @@ function catch_post_and($data, $query_command, $id)
     $jurusan = htmlspecialchars($data['jurusan']);
     $gambar = upload_img($nama, $nim);
 
-    if (!$gambar) {
-        return false;
-    }
-
     if ($query_command == "UPDATE") {
-        $query = "UPDATE mahasiswa SET nama = '" . $nama . "', email = '" . $email . "', nim = '" . $nim . "', jurusan = '" . $jurusan . "', gambar = '" . $gambar . "' WHERE id = '" . $id . "'";
+        if (!$gambar) {
+            $query = "UPDATE mahasiswa SET nama = '$nama', email = '$email', nim = '$nim', jurusan = ' $jurusan' WHERE id = $id";
+        } else {
+            $query = "UPDATE mahasiswa SET nama = '$nama', email = '$email', nim = '$nim', jurusan = ' $jurusan', gambar = '$gambar' WHERE id = $id";
+        }
     } else {
-        $query = "INSERT INTO mahasiswa VALUES('', '" . $nama . "', '" . $nim . "', '" . $email . "', '" . $jurusan . "', '" . $gambar . "')";
+        if ($_FILES['gambar']['error'] == 4) {
+            echo "<script>alert('Image is required')</script>";
+            return false;
+        }
+        $query = "INSERT INTO mahasiswa VALUES('', '$nama', '$nim', '$email', '$jurusan', '$gambar')";
     }
 
     mysqli_query($conn, $query);
@@ -51,17 +55,11 @@ function catch_post_and($data, $query_command, $id)
 
 function upload_img($nama_mhs, $nim_mhs)
 {
-    var_dump($_FILES);
 
     $nama_file = $_FILES['gambar']['name'];
     $ukuran_file = $_FILES['gambar']['size'];
     $error = $_FILES['gambar']['error'];
     $nama_tmp = $_FILES['gambar']['tmp_name'];
-
-    if ($error === 4) {
-        echo "<script>alert('Image is required')</script>";
-        return false;
-    }
 
     $valid_extension = ['jpg', 'jpeg', 'png'];
 

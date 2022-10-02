@@ -25,7 +25,6 @@ $data_mhs = query_select("SELECT * FROM mahasiswa LIMIT $first_data, $data_per_p
 if (isset($_POST['tambah-data'])) {
     if (catch_post_and($_POST, "INSERT", 0) > 0) {
         echo "<script>window.location.href='index.php'</script>";
-
     } else {
         echo "<script>alert('Error Occured When trying to insert a new row of data')</script>";
     }
