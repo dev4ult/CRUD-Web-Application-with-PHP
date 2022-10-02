@@ -33,8 +33,8 @@ if (isset($_GET['data-id'])) {
 
 if (isset($_POST['save-data'])) {
     if (catch_post_and($_POST, "UPDATE", $mhs_id) > 0) {
-        unlink('./img/pfp/' . $gambar);
         echo "<script>alert('This Data has been changed')</script>";
+        echo "<script>window.location.href= 'detail.php?data-id=" . $mhs_id . "'</script>";
     } else {
         echo "<script>alert('Error Occured When trying to update a row of data')</script>";
     }

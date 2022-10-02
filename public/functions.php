@@ -38,6 +38,9 @@ function catch_post_and($data, $query_command, $id)
         if (!$gambar) {
             $query = "UPDATE mahasiswa SET nama = '$nama', email = '$email', nim = '$nim', jurusan = ' $jurusan' WHERE id = $id";
         } else {
+            $gambar_lama = query_select("SELECT gambar FROM mahasiswa WHERE id = $id");
+
+            unlink('./img/pfp/' . $gambar_lama[0]['gambar']);
             $query = "UPDATE mahasiswa SET nama = '$nama', email = '$email', nim = '$nim', jurusan = ' $jurusan', gambar = '$gambar' WHERE id = $id";
         }
     } else {
@@ -60,6 +63,10 @@ function upload_img($nama_mhs, $nim_mhs)
     $ukuran_file = $_FILES['gambar']['size'];
     $error = $_FILES['gambar']['error'];
     $nama_tmp = $_FILES['gambar']['tmp_name'];
+
+    if ($error == 4) {
+        return false;
+    }
 
     $valid_extension = ['jpg', 'jpeg', 'png'];
 
