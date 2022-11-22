@@ -52,6 +52,8 @@ if (isset($_POST['login'])) {
     }
 }
 
+$captcha_code = substr(md5(rand()), 0, 7);
+
 ?>
 
 <!DOCTYPE html>
@@ -95,6 +97,10 @@ if (isset($_POST['login'])) {
                     <span class="label-text mr-1.5 font-bold">Remember me</span>
                     <input type="checkbox" class="checkbox checkbox-accent h-4 w-4" name="remember-me" />
                 </label>
+            </div>
+            <div>
+                <span class=""><?=$captcha_code?></span>
+
             </div>
             <div class="mb-4 mt-6">
                 <button type="submit"

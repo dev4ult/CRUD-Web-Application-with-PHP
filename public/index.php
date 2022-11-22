@@ -69,6 +69,8 @@ if (isset($_GET['search'])) {
             <label for="add-button" class="btn modal-button btn-success btn-sm text-white">Tambah
                 Mahasiswa</label>
 
+            <a href="view_chart.php" class="btn btn-sm">view chart</a>
+
             <div class="form-control">
                 <div class="input-group">
                     <input type="text" id="search-keyword" placeholder="Search…"
