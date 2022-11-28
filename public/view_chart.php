@@ -3,6 +3,13 @@ require "./functions.php";
 
 $mahasiswa = query_select("SELECT * FROM mahasiswa");
 
+$result = mysqli_query($conn, "SELECT * FROM mahasiswa");
+$mahasiswa = [];
+
+while ($row = mysqli_fetch_assoc($result)) {
+    array_push($mahasiswa, $row);
+}
+
 $tik = 0;
 $te = 0;
 $an = 0;
@@ -118,10 +125,6 @@ for ($i = 0; $i < count($mahasiswa); $i++) {
         type: 'line',
         ...configData
     })
-
-    new
-
-    new Chart()
     </script>
 </body>
 
