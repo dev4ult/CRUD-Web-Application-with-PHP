@@ -1,14 +1,21 @@
 <?php
 require 'functions.php';
 
+$captcha_code = substr(md5(rand()), 0, 7);
+
 if (isset($_POST['signup-btn'])) {
-    if (register($_POST) > 0) {
-        echo "<script>
-                alert('You have submit your registration, Check for login if admin has already confirm your registration');
-              </script>";
-    } else {
-        echo mysqli_error($conn);
-    }
+ if ($_POST['input-captcha'] != $_POST['captcha-code']) {
+  echo "<script>alert('Kode Captcha Salah')</script>";
+  echo "<script>window.location.href='registration.php'</script>";
+ } else {
+  if (register($_POST) > 0) {
+   echo "<script>
+                       alert('You have submit your registration, Check for login if admin has already confirm your registration');
+                     </script>";
+  } else {
+   echo mysqli_error($conn);
+  }
+ }
 }
 
 ?>
@@ -71,6 +78,16 @@ if (isset($_POST['signup-btn'])) {
                             class="input focus:outline-none mt-2 border-0 border-b-2 border-gray-200" name="password2"
                             required />
                     </label>
+                </div>
+                <div class="form-control mt-5">
+                    <label class="label w-fit">
+                        <span><s><?=$captcha_code?></s></span>
+                    </label>
+                    <div>
+                        <input type="text" placeholder="Captcha Code" class="input input-bordered input-md w-full"
+                            name="input-captcha" required />
+                        <input type="text" value="<?=$captcha_code?>" class="hidden" name="captcha-code">
+                    </div>
                 </div>
                 <div class="mt-8">
                     <button type="submit"

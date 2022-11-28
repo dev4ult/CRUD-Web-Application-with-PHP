@@ -4,55 +4,63 @@ session_start();
 require 'functions.php';
 
 if (isset($_COOKIE['id']) && isset($_COOKIE['key'])) {
-    $id = $_COOKIE['id'];
-    $key = $_COOKIE['key'];
+ $id = $_COOKIE['id'];
+ $key = $_COOKIE['key'];
 
-    $result = mysqli_query($conn, "SELECT username FROM user WHERE id = $id");
-    $row = mysqli_fetch_assoc($result);
+ $result = mysqli_query($conn, "SELECT username FROM user WHERE id = $id");
+ $row = mysqli_fetch_assoc($result);
 
-    if ($key === hash('sha256', $row['username'])) {
-        $_SESSION['login'] = true;
-    }
+ if ($key === hash('sha256', $row['username'])) {
+  $_SESSION['login'] = true;
+ }
 }
 
 if (isset($_SESSION['login'])) {
-    echo "<script>alert('You are already login')</script>";
-    header("Location: index.php");
-    exit;
-}
-
-if (isset($_POST['login'])) {
-    $umail = $_POST['umail'];
-    $password = $_POST['password'];
-
-    $username_check = mysqli_query($conn, "SELECT * FROM user WHERE username = '$umail'");
-    $email_check = mysqli_query($conn, "SELECT * FROM user WHERE email = '$umail'");
-
-    if (mysqli_num_rows($username_check) || mysqli_num_rows($email_check)) {
-        $row = mysqli_fetch_assoc($username_check);
-        if (!$row) {
-            $row = mysqli_fetch_assoc($email_check);
-        }
-
-        if (password_verify($password, $row['password'])) {
-            echo "<script>alert('Login Berhasil')</script>";
-            $_SESSION['login'] = true;
-
-            if (isset($_POST['remember-me'])) {
-
-                setcookie('id', $row['id'], time() + 3600);
-                setcookie('id', hash('sha256', $row['username']), time() + 60);
-            }
-
-            header("Location: index.php");
-            exit;
-        } else {
-            echo "<h2 class='text-red-500 italic'>username atau password salah</h2>";
-        }
-    }
+ echo "<script>alert('You are already login')</script>";
+ header("Location: index.php");
+ exit;
 }
 
 $captcha_code = substr(md5(rand()), 0, 7);
+
+if (isset($_POST['login'])) {
+ $umail = $_POST['umail'];
+ $password = $_POST['password'];
+
+ $username_check = mysqli_query($conn, "SELECT * FROM user WHERE username = '$umail'");
+ $email_check = mysqli_query($conn, "SELECT * FROM user WHERE email = '$umail'");
+
+ if (mysqli_num_rows($username_check) || mysqli_num_rows($email_check)) {
+  $row = mysqli_fetch_assoc($username_check);
+  if (!$row) {
+   $row = mysqli_fetch_assoc($email_check);
+  }
+
+  $captcha_code = $_POST['captcha-code'];
+
+  if (strcmp($_POST['input-captcha'], $captcha_code) != 0) {
+   echo "<script>alert('Kode Captcha Salah')</script>";
+   echo "<script>window.location.href='login.php'</script>";
+  } else {
+   if (password_verify($password, $row['password'])) {
+
+    echo "<script>alert('Login Berhasil')</script>";
+    $_SESSION['login'] = true;
+
+    if (isset($_POST['remember-me'])) {
+
+     setcookie('id', $row['id'], time() + 3600);
+     setcookie('id', hash('sha256', $row['username']), time() + 60);
+
+     header("Location: index.php");
+     exit;
+    }
+   } else {
+    echo "<h2 class='text-red-500 italic'>username atau password salah</h2>";
+   }
+  }
+ }
+}
 
 ?>
 
@@ -96,11 +104,18 @@ $captcha_code = substr(md5(rand()), 0, 7);
                 <label class="label cursor-pointer w-fit">
                     <span class="label-text mr-1.5 font-bold">Remember me</span>
                     <input type="checkbox" class="checkbox checkbox-accent h-4 w-4" name="remember-me" />
+
                 </label>
             </div>
             <div>
-                <span class=""><?=$captcha_code?></span>
-
+                <label class="label w-fit">
+                    <span class=""><s><?=$captcha_code?></s></span>
+                </label>
+                <div>
+                    <input type="text" placeholder="Captcha Code" class="input input-bordered input-md w-full"
+                        name="input-captcha" required />
+                    <input type="text" class="hidden" value="<?=$captcha_code?>" name="captcha-code">
+                </div>
             </div>
             <div class="mb-4 mt-6">
                 <button type="submit"
