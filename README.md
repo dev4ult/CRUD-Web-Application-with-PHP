@@ -1,2 +1,2 @@
-# CRUD-Web-Application-with-PHP
-Building a CRUD Website with vanilla PHP
+# php-native-crud
+Building a CRUD Website with PHP native
